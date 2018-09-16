@@ -19,17 +19,28 @@ security:
 
             # activate different ways to authenticate
 
-            http_basic: true
+#            http_basic: true
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: true
+            form_login:
+              login_path: login # name da rota
+              check_path: login # onde sendo verificado a validação
+              default_target_path: dashboard # quando logar, redirecionar para rota dashboard
+              always_use_default_target_path: true # para sempre redirecionar para o default, se não definir ele a ultima da sessão.
             # https://symfony.com/doc/current/security/form_login_setup.html
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/admin/dashboard, roles: ROLE_USER }
+         - { path: ^/admin/relatorios, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_USER }
 #         - { path: ^/profile, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        
     encoders:
       Symfony\Component\Security\Core\User\User:
         algorithm: bcrypt

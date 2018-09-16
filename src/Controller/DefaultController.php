@@ -24,6 +24,25 @@ class DefaultController extends AbstractController
      */
     public function admin()
     {
-        return new Response("<html><body><h1>Page</h1></body>");
+        return new Response("<html><body><h1>Admin Page</h1></body>");
     }
+
+    /**
+     * @Route("/admin/dashboard", name="dashboard")
+     * @return Response
+     */
+    public function dashboard()
+    {
+        return new Response("<html><body><h1>Admin Dashboard Page</h1></body>");
+    }
+
+    /**
+     * @Route("/admin/relatorios", name="relatorios")
+     * @return Response
+     */
+    public function relatorios()
+    {
+        return new Response("<html><body><h1>Admin Relatorios Page</h1></body>");
+    }
+
 }
