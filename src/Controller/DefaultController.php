@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,29 +23,39 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/admin", name="admin")
+     * @Template("default/index.html.twig")
      * @return Response
      */
     public function admin()
     {
-        return new Response("<html><body><h1>Admin Page</h1></body>");
+        $texto = "Esse usuário  não é admin.";
+
+        if($this->isGranted("ROLE_ADMIN")) {
+            $texto = "Esse usuário é um Administrador.";
+        }
+        return [
+            'texto' => $texto
+        ];
     }
 
     /**
      * @Route("/admin/dashboard", name="dashboard")
+     * @Template("default/dashboard.html.twig")
      * @return Response
      */
     public function dashboard()
     {
-        return new Response("<html><body><h1>Admin Dashboard Page</h1></body>");
+        return [];
     }
 
     /**
      * @Route("/admin/relatorios", name="relatorios")
+     * @Template("default/relatorios.html.twig")
      * @return Response
      */
     public function relatorios()
     {
-        return new Response("<html><body><h1>Admin Relatorios Page</h1></body>");
+        return [];
     }
 
     /**
